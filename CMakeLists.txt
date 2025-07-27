@@ -58,8 +58,13 @@ file(DOWNLOAD "https://pypi.python.org/pypi/${PROJECT_NAME}/json" "${CMAKE_CURRE
 include(util)
 get_compiler_version(COMPILER)
 # get version and download url
-execute_process(COMMAND ${PYTHON_EXECUTABLE}
-    ${CMAKE_SOURCE_DIR}/cmake/pypi_process.py ${PLUGIN} ${CMAKE_CURRENT_BINARY_DIR}/meta.json ${COMPILER}
+execute_process(COMMAND
+    ${PYTHON_EXECUTABLE}
+    ${CMAKE_SOURCE_DIR}/cmake/pypi_process.py
+    ${PLUGIN}
+    ${CMAKE_CURRENT_BINARY_DIR}/meta.json
+    ${COMPILER}
+    "1.15.2"
     OUTPUT_VARIABLE PACKAGE_DETAILS
     OUTPUT_STRIP_TRAILING_WHITESPACE
 )
@@ -180,10 +185,10 @@ except ImportError:
 endmacro()
 
 
-build_py()
+#build_py()
 
 if(NOT SKIP_INSTALL_LIBRARIES AND NOT SKIP_INSTALL_ALL )
-    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/inst_tmp/ DESTINATION ${INSTALL_LIB_DIR})
+    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${OUT_DIR_NAME}/${PROJECT_NAME} DESTINATION ${INSTALL_LIB_DIR})
 endif()
 
 # Archiving ====================================================================
